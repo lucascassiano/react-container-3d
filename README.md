@@ -47,7 +47,50 @@ Sometimes we just want a 3D environment to add some models and have some interac
 
 ## Usage with react-cubeview
 Both components were designed to work coupled - you can read more about react-cubeview [here](https://www.npmjs.com/package/react-cubeview). They were separated due to development simplification (We might, at some point, have enough 3D UI components to create a simple UI Kit... but that's for the future).
+```jsx
+import Container3d from 'react-container3d';
+import CubeView from 'react-cubeview';
+import 'react-cubeview/css/react-cubeview.css';
 
+class App extends Component {
+    //will return the main container (canvas)
+    getMainCanvas() {
+        var mainCanvas = ReactDOM.findDOMNode(this.c3d);
+        return mainCanvas;
+    }
+    //will update the camera angles/position from the orbitcontrols on the c3d
+    updateAngles(phi, theta) {
+        this.c3d.setAngles(phi, theta);
+    }
+
+    //called when the scene is created
+    Setup = (scene, camera, renderer) =>{
+        //add cool 3d objects here ~ remember to import THREE
+    }
+
+    //called every frame
+    Update = (scene, camera, renderer) =>{
+        //animate things
+    }
+
+    render(){
+        return(
+            <div className = "App">
+                
+                <div className="canvas-3d" >
+                    <Container3d marginTop={30} aspect={16 / 9} percentageWidth={"100%"} fitScreen ref={(c) => this.c3d = c} key={"c3d"} marginBottom={110} update={this.Update} setup={this.Setup}/>
+                </div>
+
+                <div className="cube-view">
+                    <CubeView aspect={1} hoverColor={0x0088FF} cubeSize={2} zoom={6} antialias={false} onUpdateAngles={this.updateAngles} relatedCanvas={this.getMainCanvas} />
+                </div>
+
+            </div>
+        );
+    }
+
+}
+```
 ## Custom Size/Background (CSS)
 If wrapped around a div component, you can play easily with the canvas size;
 
