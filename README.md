@@ -48,7 +48,7 @@ Sometimes we just want a 3D environment to add some models and have some interac
 ## Usage with react-cubeview
 Both components were designed to work coupled - you can read more about react-cubeview [here](https://www.npmjs.com/package/react-cubeview). They were separated due to development simplification (We might, at some point, have enough 3D UI components to create a simple UI Kit... but that's for the future).
 ```jsx
-import Container3d from 'react-container3d';
+import Container3d from 'react-container-3d';
 import CubeView from 'react-cubeview';
 import 'react-cubeview/css/react-cubeview.css';
 
