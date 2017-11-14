@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import sizeMe from 'react-sizeme';
 //import OBJLoader from 'three-react-obj-loader';
-/*
-import modelDragon from '../models3d/dragon.obj';
-import modelBunny from '../models3d/stanford_bunny.obj';
-import modelEscpod from '../models3d/escpod.obj';
-*/
 
 var OrbitControls = require('react-cubeview/lib/OrbitControls')(THREE)
 
@@ -31,6 +26,11 @@ class Container3d extends Component {
     window.removeEventListener("resize", this.updateDimensions.bind(this));
   }
 
+  /**
+   * Defines the angles - useful when using OrbitControls from react-cubeview
+   * @param {*} phi 
+   * @param {*} theta 
+   */
   setAngles(phi, theta) {
     controls.setPolarAngle(phi);
     controls.setAzimuthalAngle(theta);
@@ -62,7 +62,13 @@ class Container3d extends Component {
     }
 
     if (fitScreen) {
-      height = window.innerHeight - marginTop - marginBottom;
+      height = window.innerHeight;
+      if (marginTop) { height = height - marginTop; }
+
+      if (marginBottom) {
+        height = height - marginBottom;
+      }
+
     }
 
     var canvas = this.refs.threeCanvas;
@@ -72,7 +78,6 @@ class Container3d extends Component {
     camera.aspect = width / height;
 
     camera.updateProjectionMatrix();
-
   }
 
   init() {
@@ -89,7 +94,6 @@ class Container3d extends Component {
 
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
 
     this._createScene(canvas);
     var _this = this;
@@ -127,7 +131,7 @@ class Container3d extends Component {
 
     const { addControls, addGrid, addLight, enableZoom, enableKeys, enablePan } = this.props;
 
-    if (addGrid!=undefined ? addGrid : true) {
+    if (addGrid != undefined ? addGrid : true) {
       var gridXZ = new THREE.GridHelper(20, 20);
       gridXZ.name = "grid";
       scene.add(gridXZ);
@@ -142,9 +146,9 @@ class Container3d extends Component {
 
     if (addControls != undefined ? addControls : true) {
       controls = new OrbitControls(camera, canvas);
-      controls.enablePan = enablePan!=undefined ? enablePan : true;
-      controls.enableZoom = enableZoom!=undefined ? enableZoom : true;
-      controls.enableKeys = enableKeys!=undefined ? enableKeys : true;
+      controls.enablePan = enablePan != undefined ? enablePan : true;
+      controls.enableZoom = enableZoom != undefined ? enableZoom : true;
+      controls.enableKeys = enableKeys != undefined ? enableKeys : true;
     }
 
 
