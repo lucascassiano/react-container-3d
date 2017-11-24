@@ -1,17 +1,17 @@
 {
   "name": "react-container-3d",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A container for three.js canvas renderer as a react component",
   "main": "lib/index.js",
   "author": "lucascassiano",
-  "homepage": "https://github.com/lucascassiano/react-container-3-d",
+  "homepage": "https://github.com/lucascassiano/react-container-3d",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lucascassiano/react-container-3-d.git"
+    "url": "https://github.com/lucascassiano/react-container-3d.git"
   },
   "bugs": {
-    "url": "https://github.com/lucascassiano/react-container-3-d/issues"
+    "url": "https://github.com/lucascassiano/react-container-3d/issues"
   },
   "files": [
     "css",

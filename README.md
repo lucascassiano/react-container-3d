@@ -48,9 +48,12 @@ Sometimes we just want a 3D environment to add some models and have some interac
 ## Usage with react-cubeview
 Both components were designed to work coupled - you can read more about react-cubeview [here](https://www.npmjs.com/package/react-cubeview). They were separated due to development simplification (We might, at some point, have enough 3D UI components to create a simple UI Kit... but that's for the future).
 ```jsx
-import Container3d from 'react-container3d';
+import Container3d from 'react-container-3d';
 import CubeView from 'react-cubeview';
 import 'react-cubeview/css/react-cubeview.css';
+import * as THREE from 'three';
+
+let object1;
 
 class App extends Component {
     //will return the main container (canvas)
@@ -66,11 +69,17 @@ class App extends Component {
     //called when the scene is created
     Setup = (scene, camera, renderer) =>{
         //add cool 3d objects here ~ remember to import THREE
+        var geometry = new THREE.SphereGeometry( 1 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
+        object1 = new THREE.Mesh( geometry, material );
+				scene.add( object1 );
     }
 
     //called every frame
     Update = (scene, camera, renderer) =>{
         //animate things
+        object1.rotation.x = time * 0.0005;
+		object1.rotation.y = time * 0.001;
     }
 
     render(){

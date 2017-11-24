@@ -123,7 +123,10 @@ class Container3d extends Component {
     console.log(phi, theta);
   }
 
-
+  reloadScene(){
+    scene = new THREE.Scene();
+    //this.updateDimensions();
+  }
 
   //Insert all 3D elements here
   _createScene(canvas) {
