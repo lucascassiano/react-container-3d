@@ -123,8 +123,15 @@ class Container3d extends Component {
     console.log(phi, theta);
   }
 
-  reloadScene(){
-    scene = new THREE.Scene();
+  reloadScene(newScene) {
+    if (newScene)
+      scene = newScene;
+    else
+      scene = new THREE.Scene();
+
+    if (this.props.setup) {
+      this.props.setup(scene, camera, renderer);
+    }
     //this.updateDimensions();
   }
 
@@ -154,7 +161,6 @@ class Container3d extends Component {
       controls.enableKeys = enableKeys != undefined ? enableKeys : true;
     }
 
-
     if (addLight != undefined ? addLight : true) {
       scene.add(new THREE.AmbientLight(0xf0f0f0));
       var light = new THREE.SpotLight(0xffffff, 1.5);
@@ -166,7 +172,6 @@ class Container3d extends Component {
       light.shadow.mapSize.height = 1024;
       scene.add(light);
     }
-
 
     var _this = this;
 

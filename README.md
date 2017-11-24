@@ -5,11 +5,12 @@ A container for three.js canvas renderer as a react component
 
 ## Install
 ```javascript
-npm install --save react-container3d
+npm install --save react-container-3d && three
 ```
 
 ## Usage
 ```javaScript
+import * as THREE from 'three';
 import Container3d from 'react-container3d';
 
 ...
@@ -48,10 +49,10 @@ Sometimes we just want a 3D environment to add some models and have some interac
 ## Usage with react-cubeview
 Both components were designed to work coupled - you can read more about react-cubeview [here](https://www.npmjs.com/package/react-cubeview). They were separated due to development simplification (We might, at some point, have enough 3D UI components to create a simple UI Kit... but that's for the future).
 ```jsx
+import * as THREE from 'three';
 import Container3d from 'react-container-3d';
 import CubeView from 'react-cubeview';
 import 'react-cubeview/css/react-cubeview.css';
-import * as THREE from 'three';
 
 let object1;
 
@@ -124,3 +125,8 @@ By default, the canvas has a transparent background, this means your background 
 You can use pretty much all three.js model loaders, however be awere if you're using ES6, make sure all of them are wrapped as ES6 classes or ES5 modules.
 Also, for .obj we tested the [three-react-obj-loader](https://www.npmjs.com/package/three-react-obj-loader) combined with [three-react-mtl-loader](https://www.npmjs.com/package/three-react-mtl-loader).
 
+
+## Re-loading Scene
+```
+    this.c3d.reloadScene();
+```
