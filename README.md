@@ -7,6 +7,10 @@ A container for three.js canvas renderer as a react component
 ```javascript
 npm install --save react-container-3d && three
 ```
+## Live Demo
+Try it on ![CodeSandbox](https://codesandbox.io/s/0360pzv070):
+
+[![Edit 0360pzv070](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/0360pzv070)
 
 ## Usage
 ```javaScript

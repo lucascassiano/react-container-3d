@@ -120,7 +120,9 @@ class Container3d extends Component {
   }
 
   setAngles(phi, theta) {
-    console.log(phi, theta);
+    //console.log(phi, theta);
+    controls.setPolarAngle(phi);
+    controls.setAzimuthalAngle(theta);
   }
 
   reloadScene(newScene) {
@@ -129,6 +131,33 @@ class Container3d extends Component {
     else
       scene = new THREE.Scene();
 
+    const { addControls, addGrid, addLight, enableZoom, enableKeys, enablePan } = this.props;
+
+    if (addGrid != undefined ? addGrid : true) {
+      var gridXZ = new THREE.GridHelper(20, 20);
+      gridXZ.name = "grid";
+      scene.add(gridXZ);
+
+      var planeGeometry = new THREE.PlaneGeometry(20, 20);
+      planeGeometry.rotateX(- Math.PI / 2);
+      var planeMaterial = new THREE.ShadowMaterial({ opacity: 0.4 });
+      var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane.receiveShadow = true;
+      scene.add(plane);
+    }
+
+    if (addLight != undefined ? addLight : true) {
+      scene.add(new THREE.AmbientLight(0xf0f0f0));
+      var light = new THREE.SpotLight(0xffffff, 1.5);
+      light.position.set(50, 50, 50);
+      light.castShadow = true;
+      light.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera(70, 1, 10, 1000));
+      light.shadow.bias = -0.000222;
+      light.shadow.mapSize.width = 1024;
+      light.shadow.mapSize.height = 1024;
+      scene.add(light);
+    }
+    ƒ
     if (this.props.setup) {
       this.props.setup(scene, camera, renderer);
     }
