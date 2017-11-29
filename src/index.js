@@ -157,7 +157,7 @@ class Container3d extends Component {
       light.shadow.mapSize.height = 1024;
       scene.add(light);
     }
-    ƒ
+    
     if (this.props.setup) {
       this.props.setup(scene, camera, renderer);
     }

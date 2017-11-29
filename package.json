@@ -1,6 +1,6 @@
 {
   "name": "react-container-3d",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A container for three.js canvas renderer as a react component",
   "main": "lib/index.js",
   "author": "lucascassiano",
