@@ -115,3 +115,10 @@ By default, the canvas has a transparent background, this means your background 
 You can use pretty much all three.js model loaders, however be awere if you're using ES6, make sure all of them are wrapped as ES6 classes or ES5 modules.
 Also, for .obj we tested the [three-react-obj-loader](https://www.npmjs.com/package/three-react-obj-loader) combined with [three-react-mtl-loader](https://www.npmjs.com/package/three-react-mtl-loader).
 
+## Storybook
+
+clone or download the git page and run:
+```
+npm install 
+npm start
+```
