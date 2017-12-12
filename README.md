@@ -74,11 +74,11 @@ class App extends Component {
         this.c3d.setAngles(phi, theta);
     }
 
-    onHoverStart(object){
+    onHoverStart(object, scene, camera, renderer){
         console.log("hovering", object);
     }
 
-    onHoverEnd(object){
+    onHoverEnd(object, scene, camera, renderer){
         console.log("exiting", object);
     }
     //called when the scene is created

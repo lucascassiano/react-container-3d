@@ -209,12 +209,12 @@ class Container3d extends Component {
 
         if (intersects.length > 0) {
           if (INTERSECTED != intersects[0].object) {
-            if (INTERSECTED) _this.onHoverEnd(INTERSECTED);
+            if (INTERSECTED) _this.onHoverEnd(INTERSECTED, scene, camera, renderer);
             INTERSECTED = intersects[0].object;
-            _this.onHoverStart(INTERSECTED);
+            _this.onHoverStart(INTERSECTED, scene, camera, renderer);
           }
         } else {
-          if (INTERSECTED) _this.onHoverEnd(INTERSECTED);
+          if (INTERSECTED) _this.onHoverEnd(INTERSECTED, scene, camera, renderer);
           INTERSECTED = null;
         }
       }
@@ -230,17 +230,17 @@ class Container3d extends Component {
     return INTERSECTED;
   }
 
-  onHoverStart(object) {
+  onHoverStart(object, scene, camera, renderer) {
     if (this.props)
       if (this.props.onHoverStart) {
-        this.props.onHoverStart(object);
+        this.props.onHoverStart(object, scene, camera, renderer);
       }
   }
 
-  onHoverEnd(object) {
+  onHoverEnd(object, scene, camera, renderer) {
     if (this.props)
       if (this.props.onHoverEnd) {
-        this.props.onHoverEnd(object);
+        this.props.onHoverEnd(object, scene, camera, renderer);
       }
   }
 
