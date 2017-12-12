@@ -1,6 +1,6 @@
 {
   "name": "react-container-3d",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A container for three.js canvas renderer as a react component",
   "main": "lib/index.js",
   "author": "lucascassiano",
@@ -19,6 +19,7 @@
   ],
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
+    "@storybook/addon-actions": "^3.2.17",
     "babel-cli": "^6.24.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.2.1",

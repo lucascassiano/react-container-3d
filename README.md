@@ -74,6 +74,13 @@ class App extends Component {
         this.c3d.setAngles(phi, theta);
     }
 
+    onHoverStart(object){
+        console.log("hovering", object);
+    }
+
+    onHoverEnd(object){
+        console.log("exiting", object);
+    }
     //called when the scene is created
     Setup = (scene, camera, renderer) =>{
         //add cool 3d objects here ~ remember to import THREE
@@ -95,7 +102,7 @@ class App extends Component {
             <div className = "App">
                 
                 <div className="canvas-3d" >
-                    <Container3d marginTop={30} aspect={16 / 9} percentageWidth={"100%"} fitScreen ref={(c) => this.c3d = c} key={"c3d"} marginBottom={110} update={this.Update} setup={this.Setup}/>
+                    <Container3d marginTop={30} aspect={16 / 9} percentageWidth={"100%"} fitScreen ref={(c) => this.c3d = c} key={"c3d"} marginBottom={110} update={this.Update} setup={this.Setup} onHoverStart={this.onHoverStart} onHoverEnd={this.onHoverEnd}/>
                 </div>
 
                 <div className="cube-view">
@@ -132,13 +139,6 @@ By default, the canvas has a transparent background, this means your background 
 You can use pretty much all three.js model loaders, however be awere if you're using ES6, make sure all of them are wrapped as ES6 classes or ES5 modules.
 Also, for .obj we tested the [three-react-obj-loader](https://www.npmjs.com/package/three-react-obj-loader) combined with [three-react-mtl-loader](https://www.npmjs.com/package/three-react-mtl-loader).
 
-<<<<<<< HEAD
-
-## Re-loading Scene
-```
-    this.c3d.reloadScene();
-```
-=======
 ## Storybook
 
 clone or download the git page and run:
@@ -146,4 +146,4 @@ clone or download the git page and run:
 npm install 
 npm start
 ```
->>>>>>> d029be3216ab45be10130f491f4e8b9a28d8707c
+
