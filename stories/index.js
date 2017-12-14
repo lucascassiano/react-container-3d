@@ -22,10 +22,10 @@ function onHoverStart(obj) {
   console.log("begin hover object", obj.material);
 
   obj.originalColor = obj.material.color.getHex();
-
+  obj.material.color.setHex(0xff0000);
   if (obj instanceof THREE.Mesh) {
     console.log("is mesh");
-    obj.material.color.setHex(0xff0000);
+    
 
     //obj.material.color = "#ff0000";
   }
@@ -47,7 +47,7 @@ storiesOf("Button", module)
         aspect={16 / 9}
         percentageWidth={"100%"}
         fitScreen
-        key={"c3d"}
+        key={"a"}
         marginBottom={110}
       />
     </div>
@@ -60,7 +60,7 @@ storiesOf("Button", module)
         aspect={16 / 9}
         percentageWidth={"100%"}
         fitScreen
-        key={"c3d"}
+        key={"b"}
         marginBottom={110}
         addGrid={false}
         setup={setup}
@@ -75,7 +75,7 @@ storiesOf("Button", module)
         aspect={16 / 9}
         percentageWidth={"100%"}
         fitScreen
-        key={"c3d"}
+        key={"c"}
         marginBottom={110}
         enableZoom={false}
         setup={setup}
@@ -90,11 +90,12 @@ storiesOf("Button", module)
         aspect={16 / 9}
         percentageWidth={"100%"}
         fitScreen
-        key={"c3d"}
+        key={"d"}
         marginBottom={110}
         enableZoom={false}
         onHoverStart={onHoverStart}
         onHoverEnd={onHoverEnd}
+        addGrid={false}
         setup={setup}
         update={update}
       />

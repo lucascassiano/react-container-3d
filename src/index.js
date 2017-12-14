@@ -29,7 +29,8 @@ class Container3d extends Component {
     super(props);
     this.onHoverStart = this.onHoverStart.bind(this);
     this.onHoverEnd = this.onHoverEnd.bind(this);
-    this.onHover = this.onHover.bind(this);
+    //this.onHover = this.onHover.bind(this);
+    this.onDocumentMouseMove = this.onDocumentMouseMove.bind(this);
   }
 
   componentDidMount() {
@@ -107,7 +108,7 @@ class Container3d extends Component {
     canvas2d.height = height;
 
     renderer.setSize(width, height);
-    renderer2d.setSize(width,height);
+    renderer2d.setSize(width, height);
     camera.aspect = width / height;
 
     camera.updateProjectionMatrix();
@@ -133,7 +134,7 @@ class Container3d extends Component {
       canvas: canvas,
       antialias: this.props.antialias ? this.props.antialias : true,
       alpha: true,
-      opacity:0.5
+      opacity: 0.5
     });
     //renderer.setClearColor(0xffffff, 1);
 
@@ -141,7 +142,7 @@ class Container3d extends Component {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     renderer2d = new THREE.CSS3DRenderer({
-      canvas:canvas2d
+      canvas: canvas2d
     });
 
     renderer2d.setSize(renderer.width, renderer.height);
@@ -163,18 +164,18 @@ class Container3d extends Component {
     div.scale.x = 0.1;
     div.scale.y = 0.1;
 
-   // scene2d.add(div);
+    // scene2d.add(div);
 
     renderer2d.domElement.style.position = "absolute";
     renderer2d.domElement.style.top = 0;
     renderer2d.domElement.style.zIndex = 1;
-    
+
     var node = ReactDOM.findDOMNode(this.refs.cssCanvas);
     canvas2d = this.refs.cssCanvas.appendChild(renderer2d.domElement);
 
     //end test 2d
 
-    this._createScene(canvas,canvas2d);
+    this._createScene(canvas, canvas2d);
     var _this = this;
 
     this._render = function() {
@@ -205,16 +206,20 @@ class Container3d extends Component {
 
         raycaster.setFromCamera(mouse, camera);
 
-        var intersects = raycaster.intersectObjects(scene.children);
+        var intersects = raycaster.intersectObjects(scene.children, true);
 
         if (intersects.length > 0) {
           if (INTERSECTED != intersects[0].object) {
-            if (INTERSECTED) _this.onHoverEnd(INTERSECTED, scene, camera, renderer);
-            INTERSECTED = intersects[0].object;
-            _this.onHoverStart(INTERSECTED, scene, camera, renderer);
+            if (INTERSECTED) {
+              _this.onHoverEnd(INTERSECTED, scene, camera, renderer);
+            } else {
+              INTERSECTED = intersects[0].object;
+              _this.onHoverStart(INTERSECTED, scene, camera, renderer);
+            }
           }
         } else {
-          if (INTERSECTED) _this.onHoverEnd(INTERSECTED, scene, camera, renderer);
+          if (INTERSECTED)
+            _this.onHoverEnd(INTERSECTED, scene, camera, renderer);
           INTERSECTED = null;
         }
       }
@@ -231,6 +236,7 @@ class Container3d extends Component {
   }
 
   onHoverStart(object, scene, camera, renderer) {
+    //console.log(scene);
     if (this.props)
       if (this.props.onHoverStart) {
         this.props.onHoverStart(object, scene, camera, renderer);
@@ -305,7 +311,7 @@ class Container3d extends Component {
   }
 
   //Insert all 3D elements here
-  _createScene(canvas,canvas2d) {
+  _createScene(canvas, canvas2d) {
     console.log(this.props);
 
     const {
@@ -361,17 +367,24 @@ class Container3d extends Component {
 
   onDocumentMouseMove(event) {
     event.preventDefault();
-    mouse.x = event.clientX / window.innerWidth * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    var canvas = this.refs.threeCanvas;
+    var canvasDOM = ReactDOM.findDOMNode(canvas);
+    
+    var rect = canvasDOM.getBoundingClientRect();
+    
+    mouse.x = (event.clientX - rect.left) / rect.width * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    //mouse.x = event.clientX / window.innerWidth * 2 - 1;
+    //mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   }
 
   render() {
-    let style = {top:0, position:"absolute"};
-    let style1 = {zIndex:5};
+    let style = { top: 0, position: "absolute" };
+    let style1 = { zIndex: 5 };
     return (
       <div ref="rootthree">
-        <canvas ref="threeCanvas" style={style1}/>
-        <div ref="cssCanvas"/>
+        <canvas ref="threeCanvas" style={style1} />
+        <div ref="cssCanvas" />
       </div>
     );
   }

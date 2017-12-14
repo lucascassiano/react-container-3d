@@ -12,6 +12,12 @@ Try it on ![CodeSandbox](https://codesandbox.io/s/0360pzv070):
 
 [![Edit 0360pzv070](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/0360pzv070)
 
+## Videos
+Apps using this component
+- ![video 3](https://www.youtube.com/watch?v=gN7krypWtCc&t=113s)
+- ![video 2](https://vimeo.com/246214445)
+- ![video 1](https://vimeo.com/244749497)
+
 ## Usage
 ```javaScript
 import * as THREE from 'three';
@@ -23,7 +29,8 @@ import Container3d from 'react-container3d';
 <Container3d aspect={16 / 9} percentageWidth={"100%"}/>
 </div>
 ```
-#container life cycle
+
+# Container Drawing Methods
 p5.js (and the original Processing, of course) was used as inspiration to define the life cycle names: setup and update;
 ```javascript
 
@@ -37,6 +44,28 @@ Update = (scene, camera, renderer) =>{
         //console.log("scene", scene);
 }
 ```
+## Visual style Component Props
+| prop name | prop type | description | 
+|:---------:|:---------:|:-----------|
+| width     |  Int      |  width in pixels  |
+| height    |  Int      |  height in pixels  |
+| percentageWidth| String or Int |  percentage related to screen width |  
+| aspect  | float     |  width/height aspect ratio   |
+| fitScreen | boolean |  if the component will stretch it self to fit the screen open area|
+| marginLeft | Int | margin left in pixels |
+| marginTop | Int | margin top in pixels |
+| marginBottom | Int | margin bottom in pixels | 
+
+## 3D Scene elements Props
+| prop name | prop type | description | default |
+|:---------:|:---------:|:-----------|:-------:|      
+| addControls| boolean | if OrbitControls will be added | true |
+| addGrid | boolean | if the GridHelper will be added | true | 
+| addLight | boolean | if default light will be added | true | 
+| enableZoom | boolean | if the zoom from OrbitControls is enabled | true | 
+| enableKeys | boolean | if the keys from OrbitControls are enabled | true|
+| enablePan | boolean | if the user can pan the viewport with the mouse. Feature from OrbitControls | true |
+
 
 ## Default 3d elements
 The grid, orbitControls and lights are by default added to the scene. 
@@ -53,11 +82,10 @@ Sometimes we just want a 3D environment to add some models and have some interac
 ## Usage with react-cubeview
 Both components were designed to work coupled - you can read more about react-cubeview [here](https://www.npmjs.com/package/react-cubeview). They were separated due to development simplification (We might, at some point, have enough 3D UI components to create a simple UI Kit... but that's for the future).
 ```jsx
-<<<<<<< HEAD
 import * as THREE from 'three';
-=======
->>>>>>> d029be3216ab45be10130f491f4e8b9a28d8707c
 import Container3d from 'react-container-3d';
+
+//you need to install it using npm install --save react-cubeview
 import CubeView from 'react-cubeview';
 import 'react-cubeview/css/react-cubeview.css';
 
@@ -146,4 +174,4 @@ clone or download the git page and run:
 npm install 
 npm start
 ```
-
+check http://localhost:6006
