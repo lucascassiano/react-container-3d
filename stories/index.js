@@ -76,6 +76,7 @@ storiesOf("Button", module)
         percentageWidth={"100%"}
         fitScreen
         key={"c"}
+        onHoverStart={null}
         marginBottom={110}
         enableZoom={false}
         setup={setup}

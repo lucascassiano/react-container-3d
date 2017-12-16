@@ -56,6 +56,16 @@ Update = (scene, camera, renderer) =>{
 | marginTop | Int | margin top in pixels |
 | marginBottom | Int | margin bottom in pixels | 
 
+
+## Execution Methods
+| prop name | prop type | parameters| 
+|:---------:|:---------:|:-----------|
+| setup | function | scene, camera, renderer|
+| update | function | scene, camera, renderer|
+| onHoverStart | function | object, scene, camera, renderer|
+| onHoverEnd | function | object, scene, camera, renderer|
+| onError | function | error |
+
 ## 3D Scene elements Props
 | prop name | prop type | description | default |
 |:---------:|:---------:|:-----------|:-------:|      

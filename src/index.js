@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, {
+  Component
+} from "react";
 import ReactDOM from "react-dom";
 
 import * as THREE from "three";
@@ -12,7 +14,10 @@ let renderer,
   scene,
   camera,
   mainSphere,
-  windowSize = { width: 0, height: 0 },
+  windowSize = {
+    width: 0,
+    height: 0
+  },
   animation,
   controls;
 
@@ -30,6 +35,7 @@ class Container3d extends Component {
     this.onHoverStart = this.onHoverStart.bind(this);
     this.onHoverEnd = this.onHoverEnd.bind(this);
     //this.onHover = this.onHover.bind(this);
+    this.onError = this.onError.bind(this);
     this.onDocumentMouseMove = this.onDocumentMouseMove.bind(this);
   }
 
@@ -57,7 +63,11 @@ class Container3d extends Component {
   }
 
   getSize() {
-    var { width, percentageWidth, aspect } = this.props;
+    var {
+      width,
+      percentageWidth,
+      aspect
+    } = this.props;
     if (percentageWidth)
       width = window.innerWidth * parseFloat(percentageWidth) / 100;
 
@@ -65,7 +75,26 @@ class Container3d extends Component {
 
     height = 200;
     console.log("size", width, height);
-    return { width: width, height: height };
+    return {
+      width: width,
+      height: height
+    };
+  }
+
+  getScene() {
+    return scene;
+  }
+
+  getCamera() {
+    return camera;
+  }
+
+  getRenderer() {
+    return renderer;
+  }
+
+  clearScene() {
+    scene = new THREE.Scene();
   }
 
   updateDimensions() {
@@ -116,7 +145,10 @@ class Container3d extends Component {
 
   init() {
     //this.props.onHover("hello");
-    const { width, height } = this.getSize();
+    const {
+      width,
+      height
+    } = this.getSize();
 
     const canvas = this.refs.threeCanvas;
     //const canvas2d = this.refs.cssCanvas;
@@ -178,13 +210,16 @@ class Container3d extends Component {
     this._createScene(canvas, canvas2d);
     var _this = this;
 
-    this._render = function() {
+    this._render = function () {
       //animation = requestAnimationFrame(_this._render);
-      setTimeout(function() {
+      setTimeout(function () {
         requestAnimationFrame(_this._render);
       }, 1000 / 30); //running @ 30FPS
 
-      var { phi, theta } = _this.props;
+      var {
+        phi,
+        theta
+      } = _this.props;
 
       if (phi && theta && controls) {
         controls.setPolarAngle(phi);
@@ -192,7 +227,11 @@ class Container3d extends Component {
       }
 
       if (_this.props.update) {
-        _this.props.update(scene, camera, renderer);
+        try {
+          _this.props.update(scene, camera, renderer);
+        } catch (error) {
+          this.onError(error);
+        }
       }
 
       // find intersections
@@ -284,7 +323,9 @@ class Container3d extends Component {
 
       var planeGeometry = new THREE.PlaneGeometry(20, 20);
       planeGeometry.rotateX(-Math.PI / 2);
-      var planeMaterial = new THREE.ShadowMaterial({ opacity: 0.4 });
+      var planeMaterial = new THREE.ShadowMaterial({
+        opacity: 0.4
+      });
       var plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.receiveShadow = true;
       scene.add(plane);
@@ -305,7 +346,11 @@ class Container3d extends Component {
     }
 
     if (this.props.setup) {
-      this.props.setup(scene, camera, renderer);
+      try {
+        this.props.setup(scene, camera, renderer);
+      } catch (error) {
+        this.onError(error);
+      }
     }
     //this.updateDimensions();
   }
@@ -330,7 +375,9 @@ class Container3d extends Component {
 
       var planeGeometry = new THREE.PlaneGeometry(20, 20);
       planeGeometry.rotateX(-Math.PI / 2);
-      var planeMaterial = new THREE.ShadowMaterial({ opacity: 0.4 });
+      var planeMaterial = new THREE.ShadowMaterial({
+        opacity: 0.4
+      });
       var plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.receiveShadow = true;
       scene.add(plane);
@@ -361,7 +408,17 @@ class Container3d extends Component {
     var _this = this;
 
     if (this.props.setup) {
-      this.props.setup(scene, camera, renderer);
+      try {
+        this.props.setup(scene, camera, renderer);
+      } catch (error) {
+        this.onError(error);
+      }
+    }
+  }
+
+  onError(error) {
+    if (this.props) {
+      this.props.onError(error);
     }
   }
 
@@ -369,9 +426,9 @@ class Container3d extends Component {
     event.preventDefault();
     var canvas = this.refs.threeCanvas;
     var canvasDOM = ReactDOM.findDOMNode(canvas);
-    
+
     var rect = canvasDOM.getBoundingClientRect();
-    
+
     mouse.x = (event.clientX - rect.left) / rect.width * 2 - 1;
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
     //mouse.x = event.clientX / window.innerWidth * 2 - 1;
@@ -379,13 +436,24 @@ class Container3d extends Component {
   }
 
   render() {
-    let style = { top: 0, position: "absolute" };
-    let style1 = { zIndex: 5 };
-    return (
-      <div ref="rootthree">
-        <canvas ref="threeCanvas" style={style1} />
-        <div ref="cssCanvas" />
-      </div>
+    let style = {
+      top: 0,
+      position: "absolute"
+    };
+    let style1 = {
+      zIndex: 5
+    };
+    return ( <
+      div ref = "rootthree" >
+      <
+      canvas ref = "threeCanvas"
+      style = {
+        style1
+      }
+      /> <
+      div ref = "cssCanvas" / >
+      <
+      /div>
     );
   }
 }
