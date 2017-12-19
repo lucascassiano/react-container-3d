@@ -1,7 +1,8 @@
 {
   "name": "react-container-3d",
-  "version": "0.3.4",
-  "description": "A container for three.js canvas renderer as a react component",
+  "version": "0.4.5",
+  "description":
+    "A container for three.js canvas renderer as a react component",
   "main": "lib/index.js",
   "author": "lucascassiano",
   "homepage": "https://github.com/lucascassiano/react-container-3d",
@@ -13,10 +14,7 @@
   "bugs": {
     "url": "https://github.com/lucascassiano/react-container-3d/issues"
   },
-  "files": [
-    "css",
-    "lib"
-  ],
+  "files": ["css", "lib"],
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
     "@storybook/addon-actions": "^3.2.17",
@@ -46,21 +44,16 @@
   },
   "scripts": {
     "start": "npm run storybook",
-    "build": "rimraf lib && babel src --out-dir lib --ignore test.js --copy-files",
+    "build":
+      "rimraf lib && babel src --out-dir lib --ignore test.js --copy-files",
     "test": "jest",
     "test:watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "jsx",
-      "js",
-      "json"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/(lib|docs|node_modules)/"
-    ]
+    "moduleFileExtensions": ["jsx", "js", "json"],
+    "testPathIgnorePatterns": ["<rootDir>/(lib|docs|node_modules)/"]
   },
   "dependencies": {
     "react-cubeview": "^2.5.8",
