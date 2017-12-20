@@ -6,6 +6,8 @@ import Container3d from "./../src";
 
 import "./../src/css/style.css";
 
+import test1 from "./test1";
+
 let cube;
 let t = 0;
 let mousePos = { x: 0, y: 0 };

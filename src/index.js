@@ -39,6 +39,10 @@ class Container3d extends Component {
   }
 
   componentDidMount() {
+
+    if (this.props.relatedCanvas)
+      this.relatedCanvas = this.props.relatedCanvas();
+
     this.init();
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
@@ -100,7 +104,7 @@ class Container3d extends Component {
     var canvas = this.refs.threeCanvas;
     scene = new THREE.Scene();
     //this._createScene(canvas);
-    this.reloadScene(scene);
+    this.reloadScene();
   }
 
   updateDimensions() {
@@ -229,9 +233,7 @@ class Container3d extends Component {
           INTERSECTED = null;
         }
       }
-
       renderer.render(scene, camera);
-      // this.updateRendererDimensions();
     };
 
     this._render();
@@ -320,13 +322,12 @@ class Container3d extends Component {
         this.onError(error);
       }
     }
-    //this.updateDimensions();
+    this.updateDimensions();
   }
 
   //Insert all 3D elements here
   _createScene(canvas) {
     //console.log(this.props);
-
     const {
       addControls,
       addGrid,
@@ -353,6 +354,10 @@ class Container3d extends Component {
 
     if (addControls != undefined ? addControls : true) {
       var rootDiv = this.refs.rootthree;
+
+      if (this.relatedCanvas)
+        rootDiv = this.relatedCanvas;
+
       controls = new OrbitControls(camera, rootDiv);
       controls.enablePan = enablePan != undefined ? enablePan : true;
       controls.enableZoom = enableZoom != undefined ? enableZoom : true;
@@ -360,14 +365,14 @@ class Container3d extends Component {
     }
 
     if (addLight != undefined ? addLight : true) {
-      scene.add(new THREE.AmbientLight(0xf0f0f0));
-      var light = new THREE.SpotLight(0xffffff, 1.5);
+      scene.add(new THREE.AmbientLight(0x777));
+      var light = new THREE.SpotLight(0xffffff, 1.0);
       light.position.set(50, 50, 50);
       light.castShadow = true;
       light.shadow = new THREE.LightShadow(
         new THREE.PerspectiveCamera(70, 1, 10, 1000)
       );
-      light.shadow.bias = -0.000222;
+      light.shadow.bias = -0.0001;
       light.shadow.mapSize.width = 1024;
       light.shadow.mapSize.height = 1024;
       scene.add(light);
@@ -399,8 +404,7 @@ class Container3d extends Component {
 
     mouse.x = (event.clientX - rect.left) / rect.width * 2 - 1;
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-    //mouse.x = event.clientX / window.innerWidth * 2 - 1;
-    //mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
   }
 
   render() {
