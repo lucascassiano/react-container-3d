@@ -39,7 +39,6 @@ class Container3d extends Component {
   }
 
   componentDidMount() {
-
     if (this.props.relatedCanvas)
       this.relatedCanvas = this.props.relatedCanvas();
 
@@ -52,6 +51,7 @@ class Container3d extends Component {
     renderer = null;
     scene = null;
     camera = null;
+    controls = null;
     window.removeEventListener("resize", this.updateDimensions.bind(this));
   }
 
@@ -61,8 +61,10 @@ class Container3d extends Component {
    * @param {*} theta
    */
   setAngles(phi, theta) {
-    controls.setPolarAngle(phi);
-    controls.setAzimuthalAngle(theta);
+    if (controls) {
+      controls.setPolarAngle(phi);
+      controls.setAzimuthalAngle(theta);
+    }
   }
 
   getSize() {
@@ -244,7 +246,6 @@ class Container3d extends Component {
   }
 
   onHoverStart(object, scene, camera, renderer) {
-    //console.log(scene);
     if (this.props)
       if (this.props.onHoverStart) {
         this.props.onHoverStart(object, scene, camera, renderer);
@@ -259,7 +260,6 @@ class Container3d extends Component {
   }
 
   onHover(object) {
-    //dosomething
     if (this.props)
       if (this.props.onHover) {
         this.props.onHover(object);
@@ -268,8 +268,10 @@ class Container3d extends Component {
 
   setAngles(phi, theta) {
     //console.log(phi, theta);
-    controls.setPolarAngle(phi);
-    controls.setAzimuthalAngle(theta);
+    if (controls) {
+      controls.setPolarAngle(phi);
+      controls.setAzimuthalAngle(theta);
+    }
   }
 
   reloadScene(newScene) {
@@ -315,6 +317,17 @@ class Container3d extends Component {
       scene.add(light);
     }
 
+    if (addControls) {
+      var rootDiv = this.refs.rootthree;
+
+      if (this.relatedCanvas) rootDiv = this.relatedCanvas;
+
+      controls = new OrbitControls(camera, rootDiv);
+      controls.enablePan = enablePan != undefined ? enablePan : true;
+      controls.enableZoom = enableZoom != undefined ? enableZoom : true;
+      controls.enableKeys = enableKeys != undefined ? enableKeys : true;
+    }
+
     if (this.props.setup) {
       try {
         this.props.setup(scene, camera, renderer);
@@ -352,11 +365,10 @@ class Container3d extends Component {
       scene.add(plane);
     }
 
-    if (addControls != undefined ? addControls : true) {
+    if (addControls) {
       var rootDiv = this.refs.rootthree;
 
-      if (this.relatedCanvas)
-        rootDiv = this.relatedCanvas;
+      if (this.relatedCanvas) rootDiv = this.relatedCanvas;
 
       controls = new OrbitControls(camera, rootDiv);
       controls.enablePan = enablePan != undefined ? enablePan : true;
@@ -404,7 +416,6 @@ class Container3d extends Component {
 
     mouse.x = (event.clientX - rect.left) / rect.width * 2 - 1;
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
   }
 
   render() {

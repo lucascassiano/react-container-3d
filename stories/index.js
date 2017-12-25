@@ -106,6 +106,19 @@ function setup2(scene, camera, renderer) {
 
 function update(scene, camera, renderer) {}
 
+function setup3(scene, camera, renderer) {
+  camera.position.set(0, -10, -10);
+  //camera.lookAt(Vector3(0,0,0));
+  camera.up = new THREE.Vector3(0, 0, 1);
+  camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+  var geometry = new THREE.BoxGeometry(5, 5, 5);
+
+  var material = new THREE.MeshBasicMaterial({ color: 0x0088aa });
+  cube = new THREE.Mesh(geometry, material);
+  cube.position.x = 0;
+  scene.add(cube);
+}
 function onHoverStart(obj) {
   obj.originalColor = obj.material.color;
   obj.material = new THREE.MeshBasicMaterial({ color: 0xf39c12 });
@@ -153,6 +166,7 @@ storiesOf("Button", module)
         percentageWidth={"100%"}
         fitScreen
         key={"a"}
+        addControls={true}
         marginBottom={110}
       />
     </div>
@@ -168,6 +182,7 @@ storiesOf("Button", module)
         key={"b"}
         marginBottom={110}
         addGrid={false}
+        addControls={true}
         setup={setup}
       />
     </div>
@@ -184,7 +199,7 @@ storiesOf("Button", module)
         onHoverStart={null}
         marginBottom={110}
         enableZoom={false}
-        setup={setup}
+        setup={setup3}
       />
     </div>
   ))
@@ -202,6 +217,7 @@ storiesOf("Button", module)
         onHoverStart={onHoverStart}
         onHoverEnd={onHoverEnd}
         addGrid={false}
+        addControls={true}
         setup={setup}
         update={update}
       />
@@ -221,6 +237,7 @@ storiesOf("Button", module)
         onHoverStart={onHoverTreesStart}
         onHoverEnd={onHoverTreesEnd}
         addGrid={false}
+        addControls={true}
         setup={setup2}
         update={update}
         addLight={false}
@@ -240,8 +257,26 @@ storiesOf("Button", module)
         onHoverEnd={onHoverTreesEnd}
         addGrid={false}
         setup={setup2}
+        addControls={true}
         update={update}
         addLight={false}
+      />
+    </div>
+  ))
+  .add("Removed Controls", () => (
+    <div className="canvas-3d">
+      <Container3d
+        marginTop={30}
+        aspect={16 / 9}
+        percentageWidth={"100%"}
+        fitScreen
+        marginBottom={110}
+        onHoverStart={onHoverTreesStart}
+        onHoverEnd={onHoverTreesEnd}
+        setup={setup3}
+        update={update}
+        addLight={false}
+        addControls={false}
       />
     </div>
   ));
