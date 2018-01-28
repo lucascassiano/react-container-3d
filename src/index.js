@@ -323,7 +323,8 @@ class Container3d extends Component {
         if (addControls) {
             var rootDiv = this.refs.rootthree;
 
-            if (this.relatedCanvas) rootDiv = this.relatedCanvas;
+            //if (this.relatedCanvas) rootDiv = this.relatedCanvas;
+
             if (this.updateAngles) {
                 controls = new OrbitControls(camera, rootDiv, this.updateAngles);
             } else {
