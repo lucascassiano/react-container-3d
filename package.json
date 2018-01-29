@@ -1,6 +1,6 @@
 {
     "name": "react-container-3d",
-    "version": "0.5.5",
+    "version": "0.5.8",
     "description": "A container for three.js canvas renderer as a react component",
     "main": "lib/index.js",
     "author": "lucascassiano",
@@ -51,7 +51,8 @@
         "test:watch": "jest --watch",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
-        "release": "npm run build && npm publish"
+        "release": "npm run build && npm version patch && npm publish",
+        "git": "git add . && git commit -m \"new version (automatically generated)\" && git push origin master"
     },
     "jest": {
         "moduleFileExtensions": [
@@ -64,8 +65,7 @@
         ]
     },
     "dependencies": {
-        "react-cubeview": "^2.6.5",
-        "react-sizeme": "^2.3.6",
+        "react-cubeview": "^2.6.22",
         "three": "^0.88.0",
         "three-react-obj-loader": "^1.0.4"
     }

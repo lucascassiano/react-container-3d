@@ -377,11 +377,23 @@ class Container3d extends Component {
             var rootDiv = this.refs.rootthree;
 
             if (this.relatedCanvas) rootDiv = this.relatedCanvas;
-
-            controls = new OrbitControls(camera, rootDiv);
-            controls.enablePan = enablePan != undefined ? enablePan : true;
-            controls.enableZoom = enableZoom != undefined ? enableZoom : true;
-            controls.enableKeys = enableKeys != undefined ? enableKeys : true;
+            
+            if (addControls) {
+                var rootDiv = this.refs.rootthree;
+    
+                //if (this.relatedCanvas) rootDiv = this.relatedCanvas;
+    
+                if (this.updateAngles) {
+                    controls = new OrbitControls(camera, rootDiv, this.updateAngles);
+                } else {
+                    controls = new OrbitControls(camera, rootDiv);
+                }
+    
+                controls.enablePan = enablePan != undefined ? enablePan : true;
+                controls.enableZoom = enableZoom != undefined ? enableZoom : true;
+                controls.enableKeys = enableKeys != undefined ? enableKeys : true;
+            }
+    
         }
 
         if (addLight != undefined ? addLight : true) {
@@ -434,14 +446,16 @@ class Container3d extends Component {
         let style1 = {
             zIndex: 5
         };
-        return ( <
-            div ref = "rootthree" >
-            <
-            canvas ref = "threeCanvas"
-            style = { style1 }
-            /> <div ref="cssCanvas" / >
-            <
-            /div>
+        return ( 
+            <div ref = "rootthree" >
+            
+            <canvas ref = "threeCanvas"
+                style = { style1 }
+            /> 
+            
+            <div ref="cssCanvas" / >
+            
+            </div>
         );
     }
 }
